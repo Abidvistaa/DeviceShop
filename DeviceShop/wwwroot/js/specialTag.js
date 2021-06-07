@@ -6,23 +6,23 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/Admin/ProductType/GetAll"
+            "url": "/Admin/SpecialTag/GetAll"
 
         },
         "columns": [
-            { "data": "productsType", "width": "40%" },
+            { "data": "tagName", "width": "40%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
                             <div class="text-center">
-                                <a href="/Admin/ProductType/Edit/${data}" class="btn btn-success text-white style" style="cursor:pointer">
+                                <a href="/Admin/SpecialTag/Edit/${data}" class="btn btn-success text-white style" style="cursor:pointer">
                                     <i class="far fa-edit"></i> 
                                 </a>
-                                <a href="/Admin/ProductType/Details/${data}" class="btn btn-success text-white style" style="cursor:pointer">
+                                <a href="/Admin/SpecialTag/Details/${data}" class="btn btn-success text-white style" style="cursor:pointer">
                                     <i class="fas fa-list"></i>
                                 </a>
-                                <a onclick=Delete("/Admin/ProductType/Delete/${data}") class="btn btn-danger text-white style" style="cursor:pointer">
+                                <a onclick=Delete("/Admin/SpecialTag/Delete/${data}") class="btn btn-danger text-white style" style="cursor:pointer">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
      

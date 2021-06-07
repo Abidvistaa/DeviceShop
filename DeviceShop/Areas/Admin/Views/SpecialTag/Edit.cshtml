@@ -1,4 +1,4 @@
-﻿@model DeviceShop.Models.ProductType
+﻿@model DeviceShop.Models.SpecialTag
 @{
     ViewData["Title"] = "Edit";
 }
@@ -10,11 +10,11 @@
         <div class="form-group row">
             <input type="hidden" asp-for="Id"/>
             <div class="col-2">
-                <label asp-for="ProductsType"></label>
+                <label asp-for="TagName"></label>
             </div>
             <div class="col-5">
-                <input asp-for="ProductsType" class="form-control" />
-                <span asp-validation-for="ProductsType" class="text-danger"></span>
+                <input asp-for="TagName" class="form-control" />
+                <span asp-validation-for="TagName" class="text-danger"></span>
             </div>
 
         </div>

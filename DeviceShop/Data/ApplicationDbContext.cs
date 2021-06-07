@@ -14,5 +14,6 @@ namespace DeviceShop.Data
         {
         }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<SpecialTag> SpecialTags { get; set; }
     }
 }
