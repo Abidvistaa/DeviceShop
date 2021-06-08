@@ -26,8 +26,8 @@ namespace DeviceShop.Areas.Admin.Controllers
         }
         public ActionResult Details(int id)
         {
-            var dbFromObj = _db.SpecialTags.Find(id);
-            return View(dbFromObj);
+            var specialTag = _db.SpecialTags.Find(id);
+            return View(specialTag);
         }
         public ActionResult GetAll()
         {
@@ -45,12 +45,8 @@ namespace DeviceShop.Areas.Admin.Controllers
         //Edit Get action Method
         public ActionResult Edit(int id)
         {
-            var dbFromObj = _db.SpecialTags.Find(id);
-            if (dbFromObj == null)
-            {
-                return NotFound();
-            }
-            return View(dbFromObj);
+            var specialTag = _db.SpecialTags.Find(id);
+            return View(specialTag);
         }
        
 
@@ -90,18 +86,11 @@ namespace DeviceShop.Areas.Admin.Controllers
         public ActionResult Delete(int id)
         {
             
-            SpecialTag specialTag= _db.SpecialTags.Where(x=>x.Id==id).FirstOrDefault<SpecialTag>();
-            _db.SpecialTags.Remove(specialTag);
+            var specialTag= _db.SpecialTags.Where(x=>x.Id==id).FirstOrDefault<SpecialTag>();
+            _db.Remove(specialTag);
             _db.SaveChanges();
             return Json(new{success=true,message="Deleted Successfully" });
-            //var objFromDB = _db.ProductTypes.Find(id);
-            //if (objFromDB == null)
-            //{
-            //    return Json(new { success = false, message = "Error While Deleting" });
-            //}
-            //_db.ProductTypes.Remove(objFromDB);
-            //_db.SaveChanges();
-            //return Json(new { success = true, message = "Delete Success" });
+            
         }
     }
 }

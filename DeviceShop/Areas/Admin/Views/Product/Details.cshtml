@@ -1,4 +1,5 @@
-﻿@model DeviceShop.Models.ProductType
+﻿@using DeviceShop.Models
+@model DeviceShop.Models.Product
 @{
     ViewData["Title"] = "Details";
 }
@@ -6,7 +7,7 @@
 <br />
 <div class="row">
     <div class="col-6">
-        <h2 class="text-info">ProductType Details</h2>
+        <h2 class="text-info">Product Details</h2>
     </div>
 </div>
 
@@ -15,20 +16,39 @@
 <div class="p-4 rounded border" style="width:70%; ">
     <div class="form-group row">
         <div class="col-2">
-            <label>ProductsType:</label>
+            <label>Name:</label>
         </div>
         <div class="col-5">
-            @Html.DisplayFor(x => x.ProductsType)
+            @Html.DisplayFor(x => x.Name)
         </div>
-
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label>Price:</label>
+        </div>
+        <div class="col-5">
+            @Html.DisplayFor(x => x.Price)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label>Color:</label>
+        </div>
+        <div class="col-5">
+            @Html.DisplayFor(x => x.Color)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label>Name:</label>
+        </div>
+        <div class="col-5">
+            @Html.DisplayFor(x => x.ProductType.ProductsType)
+        </div>
     </div>
     <div class="form-group" style="padding-left:130px;">
-        <a asp-action="Index" class="btn btn-secondary">Back To List</a>
         <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Id">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back To List</a>
     </div>
 </div>
 
-@section Scripts{
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

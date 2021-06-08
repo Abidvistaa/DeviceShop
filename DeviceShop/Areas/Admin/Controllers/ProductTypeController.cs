@@ -26,8 +26,8 @@ namespace DeviceShop.Areas.Admin.Controllers
         }
         public ActionResult Details(int id)
         {
-            var dbFromObj = _db.ProductTypes.Find(id);
-            return View(dbFromObj);
+            var productType = _db.ProductTypes.Find(id);
+            return View(productType);
         }
 
         //Create Get action Method
@@ -47,8 +47,8 @@ namespace DeviceShop.Areas.Admin.Controllers
         //Edit Get action Method
         public ActionResult Edit(int id)
         {
-            var dbFromObj = _db.ProductTypes.Find(id);
-            return View(dbFromObj);
+            var productType = _db.ProductTypes.Find(id);
+            return View(productType);
         }
        
 
@@ -91,8 +91,8 @@ namespace DeviceShop.Areas.Admin.Controllers
         public ActionResult Delete(int id)
         {
             
-            ProductType productType= _db.ProductTypes.Where(x=>x.Id==id).FirstOrDefault<ProductType>();
-            _db.ProductTypes.Remove(productType);
+            var productType= _db.ProductTypes.Where(x=>x.Id==id).FirstOrDefault<ProductType>();
+            _db.Remove(productType);
             _db.SaveChanges();
             return Json(new{success=true,message="Deleted Successfully" });
            
