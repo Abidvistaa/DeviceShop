@@ -59,3 +59,6 @@ function Delete(url) {
         }
     });
 } 
+
+
+//Alertify

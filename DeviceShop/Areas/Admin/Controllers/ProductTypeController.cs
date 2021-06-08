@@ -48,10 +48,6 @@ namespace DeviceShop.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             var dbFromObj = _db.ProductTypes.Find(id);
-            if (dbFromObj == null)
-            {
-                return NotFound();
-            }
             return View(dbFromObj);
         }
        
@@ -66,8 +62,11 @@ namespace DeviceShop.Areas.Admin.Controllers
                 _db.ProductTypes.Add(productType);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                //TempData["save"] = "Saved Succeessfully";
             }
+            
             return View(productType);
+            
         }
 
 
