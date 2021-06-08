@@ -22,7 +22,7 @@ namespace DeviceShop.Areas.Admin.Controllers
         public IActionResult Index()
         {
             
-            return View(_db.SpecialTags.ToList());
+            return View();
         }
         public ActionResult Details(int id)
         {

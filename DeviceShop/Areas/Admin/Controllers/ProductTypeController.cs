@@ -22,7 +22,7 @@ namespace DeviceShop.Areas.Admin.Controllers
         public IActionResult Index()
         {
             
-            return View(_db.ProductTypes.ToList());
+            return View();
         }
         public ActionResult Details(int id)
         {
@@ -95,14 +95,7 @@ namespace DeviceShop.Areas.Admin.Controllers
             _db.ProductTypes.Remove(productType);
             _db.SaveChanges();
             return Json(new{success=true,message="Deleted Successfully" });
-            //var objFromDB = _db.ProductTypes.Find(id);
-            //if (objFromDB == null)
-            //{
-            //    return Json(new { success = false, message = "Error While Deleting" });
-            //}
-            //_db.ProductTypes.Remove(objFromDB);
-            //_db.SaveChanges();
-            //return Json(new { success = true, message = "Delete Success" });
+           
         }
     }
 }
