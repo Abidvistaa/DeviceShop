@@ -1,5 +1,7 @@
-﻿using DeviceShop.Models;
+﻿using DeviceShop.Data;
+using DeviceShop.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,18 +14,25 @@ namespace DeviceShop.Controllers
     [Area("Customer")]
     public class HomeController : Controller
     {
+        private ApplicationDbContext _db;
+        public HomeController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        
 
         public IActionResult Index()
         {
-            return View();
+            var product = _db.Products.Include(x => x.ProductType).Include(y => y.SpecialTag).ToList();
+            return View(product);
         }
-
+        public ActionResult Details(int id)
+        {
+            var product = _db.Products.Include(c => c.ProductType).Include(d => d.SpecialTag).FirstOrDefault(x => x.Id == id);
+            return View(product);
+        }
         public IActionResult Privacy()
         {
             return View();

@@ -77,7 +77,7 @@ namespace DeviceShop.Areas.Admin.Controllers
                 }
                 else
                 {
-                    product.Image = "images/noimg.jpg";
+                    product.Image = "images/noimage.png";
                 }
                 _db.Products.Add(product);
                 await _db.SaveChangesAsync();
