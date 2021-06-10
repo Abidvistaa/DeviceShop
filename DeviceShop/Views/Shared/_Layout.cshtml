@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using DeviceShop.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{ 
+    int count = 0;
+    List<Product> products = HttpContextAccessor.HttpContext.Session.Get<List<Product>>("products");
+    if (products == null)
+    {
+        products = new List<Product>();
+    }
+    count = products.Count();
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -31,6 +44,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index"><i class="fas fa-cart-plus"></i>&nbsp;(@count)</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

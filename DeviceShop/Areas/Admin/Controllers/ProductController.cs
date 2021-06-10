@@ -53,11 +53,11 @@ namespace DeviceShop.Areas.Admin.Controllers
         }
 
         //Edit Get action Method
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, IFormFile image)
         {
             ViewData["productTypeId"] = new SelectList(_db.ProductTypes.ToList(), "Id", "ProductsType");
             ViewData["tagId"] = new SelectList(_db.SpecialTags.ToList(), "Id", "TagName");
-            var product = _db.Products.Include(c => c.ProductType).Include(d => d.SpecialTag).FirstOrDefault(x=>x.Id==id);
+            var product = _db.Products.FirstOrDefault(x => x.Id == id);
             return View(product);
         }
 
@@ -66,33 +66,6 @@ namespace DeviceShop.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Product product,IFormFile image)
-        {
-            if (ModelState.IsValid)
-            {
-                if (image!=null)
-                {
-                    var name = Path.Combine(_he.WebRootPath+"/images",Path.GetFileName(image.FileName));
-                    await image.CopyToAsync(new FileStream(name, FileMode.Create));
-                    product.Image = "images/"+image.FileName;
-                }
-                else
-                {
-                    product.Image = "images/noimage.png";
-                }
-                _db.Products.Add(product);
-                await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-                //TempData["save"] = "Saved Succeessfully";
-            }
-            return View(product);
-
-        }
-
-
-        //Edit Post action Method
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Product product, IFormFile image)
         {
             if (ModelState.IsValid)
             {
@@ -106,6 +79,37 @@ namespace DeviceShop.Areas.Admin.Controllers
                 {
                     product.Image = "images/noimage.png";
                 }
+
+                _db.Products.Add(product);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+                //TempData["save"] = "Saved Succeessfully";
+            }
+            return View(product);
+
+        }
+
+
+        //Edit Post action Method
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(int id,Product product, IFormFile image)
+        {
+            if (ModelState.IsValid)
+            {
+                if (image != null)
+                {
+                    var name = Path.Combine(_he.WebRootPath + "/images", Path.GetFileName(image.FileName));
+                    await image.CopyToAsync(new FileStream(name, FileMode.Create));
+                    product.Image = "images/" + image.FileName;
+                }
+                else
+                {
+
+                    //Product obj = _db.Products.Where(x => x.Id == id).FirstOrDefault<Product>();
+                    //product.Image = obj.Image;
+                }
+
                 _db.Products.Update(product);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -1,5 +1,6 @@
 ﻿using DeviceShop.Data;
 using DeviceShop.Models;
+using DeviceShop.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -42,6 +43,23 @@ namespace DeviceShop.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        [ActionName("Details")]
+        public ActionResult Product(int id)
+        {
+            List<Product> products = new List<Product>();
+            var product = _db.Products.Include(c => c.ProductType).Include(d => d.SpecialTag).FirstOrDefault(x => x.Id == id);
+            
+            products = HttpContext.Session.Get < List < Product >> ("products");
+            if (products == null)
+            {
+                products = new List<Product>();
+            }
+            products.Add(product);
+            HttpContext.Session.Set("products",products);
+            return View(product);
         }
     }
 }
