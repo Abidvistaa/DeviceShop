@@ -25,7 +25,6 @@ function loadDataTable() {
                                 <a onclick=Delete("/Admin/ProductType/Delete/${data}") class="btn btn-danger text-white style" style="cursor:pointer">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
-     
                             </div>
                             `;
                 }, "width": "60%"

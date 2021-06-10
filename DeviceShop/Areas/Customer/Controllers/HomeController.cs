@@ -35,6 +35,7 @@ namespace DeviceShop.Controllers
             var product = _db.Products.Include(c => c.ProductType).Include(d => d.SpecialTag).FirstOrDefault(x => x.Id == id);
             return View(product);
         }
+
         //Get Remove from Cart
         [ActionName("Remove")]
         public ActionResult RemoveCart(int id)
