@@ -1,13 +1,51 @@
-﻿@using DeviceShop.Utility
-@using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor HttpContextAccessor
-
+﻿@using DeviceShop.Models
+@model List<Product>
 @{
-    int count = 0;
-    List<Product> products = HttpContextAccessor.HttpContext.Session.Get<List<Product>>("products");
-    if (products == null)
-    {
-        products = new List<Product>();
-    }
-    count = products.Count();
+    ViewData["Title"] = "Cart";
 }
+<h1>Your Cart</h1>
+<br />
+
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Color</th>
+                <th>Product Type</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/@product.Image" width="200px" height="150px" />
+                    </td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>@product.Color</td>
+                    <td>@product.ProductType.ProductsType</td>
+                    <td>
+                        <a asp-action="Remove" asp-controller="Home" asp-area="Customer" asp-route-id="@product.Id" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-4">
+        <a asp-action="Index" asp-controller="Home" asp-area="Customer" class="btn btn-secondary">Back To Home</a>
+    </div>
+    <div class="col-4 text-right">
+        <h5 style="color:red">Total Amount : @Model.Sum(c => c.Price)</h5>
+    </div>
+    <div class="col-4 text-right">
+        <a asp-action="Index" asp-controller="Home" asp-area="Customer" class="btn btn-outline-info">Process To Checkout</a>
+    </div>
+</div>
+

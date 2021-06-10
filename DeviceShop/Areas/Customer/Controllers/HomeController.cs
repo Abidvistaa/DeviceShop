@@ -35,6 +35,23 @@ namespace DeviceShop.Controllers
             var product = _db.Products.Include(c => c.ProductType).Include(d => d.SpecialTag).FirstOrDefault(x => x.Id == id);
             return View(product);
         }
+        //Get Remove from Cart
+        [ActionName("Remove")]
+        public ActionResult RemoveCart(int id)
+        {
+            List<Product> products = HttpContext.Session.Get<List<Product>>("products");
+            Product product = null;
+            if (products != null)
+            {
+                product = products.FirstOrDefault(c => c.Id == id);
+                if (product != null)
+                {
+                    products.Remove(product);
+                    HttpContext.Session.Set("products", products);
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -50,8 +67,8 @@ namespace DeviceShop.Controllers
         [ActionName("Details")]
         public ActionResult ProductSession(int id)
         {
+            var product = _db.Products.Include(c => c.ProductType).Include(d => d.SpecialTag).FirstOrDefault(x => x.Id == id);
             List<Product> products = HttpContext.Session.Get<List<Product>>("products");
-            var product = _db.Products.FirstOrDefault(x => x.Id == id);
             if (products == null)
             {
                 products = new List<Product>();
@@ -80,8 +97,12 @@ namespace DeviceShop.Controllers
 
         public IActionResult Cart()
         {
-            
-            return View();
+            List<Product> products = HttpContext.Session.Get<List<Product>>("products");
+            if (products==null)
+            {
+                products = new List<Product>();
+            }
+            return View(products);
         }
     }
 }
