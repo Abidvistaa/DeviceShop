@@ -3,6 +3,19 @@
 @{
     ViewData["Title"] = "Details";
 }
+@using System.Net.Http
+@using DeviceShop.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{ 
+    List<Product> products = HttpContextAccessor.HttpContext.Session.Get<List<Product>>("products");
+    Product product = null;
+    if (products != null)
+    {
+        product = products.FirstOrDefault(c => c.Id == Model.Id);
+    }
+}
 
 <br />
 <div class="row">
@@ -51,11 +64,20 @@
             </div>
             <br />
             <div class="form-group" style="padding-left:0px;">
-                <a asp-action="Index" class="btn btn-secondary">Back To List</a>&nbsp;
-                @if (Model.IsAvailable == true)
+                <a asp-action="Index" class="btn btn-secondary">Back To List</a>
+                @if (product != null)
                 {
-                <i class="fas fa-cart-plus"></i><input type="submit" value="Order" class="btn btn-outline-success "/>
+                    <button type="submit" value="" class="btn btn-outline-danger " asp-action="Remove" asp-route-id="@Model.Id">Remove the order </button>
                 }
+                else
+                {
+
+                    @if (Model.IsAvailable == true)
+                    {
+                        <button type="submit" value="" class="btn btn-outline-success ">Order </button> <i class="fas fa-cart-plus"></i>
+                    }
+                }
+
             </div>
             <div class="form-group pt-4">
                 <img src="~/@Model.Image" width="100%" height="100%" />
