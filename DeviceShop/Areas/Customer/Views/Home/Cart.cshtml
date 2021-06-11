@@ -45,7 +45,7 @@
         <h5 style="color:red">Total Amount : @Model.Sum(c => c.Price)</h5>
     </div>
     <div class="col-4 text-right">
-        <a asp-action="Index" asp-controller="Home" asp-area="Customer" class="btn btn-outline-info">Process To Checkout</a>
+        <a asp-action="Checkout" asp-controller="Order" asp-area="Customer" class="btn btn-outline-info">Process To Checkout</a>
     </div>
 </div>
 

@@ -8,6 +8,10 @@ namespace DeviceShop.Models
 {
     public class Order
     {
+        public Order()
+        {
+            OrderDetail = new List<OrderDetail>();
+        }
         public int Id { get; set; }
         [Display(Name="Order No")]
         public string OrderNo { get; set; }
