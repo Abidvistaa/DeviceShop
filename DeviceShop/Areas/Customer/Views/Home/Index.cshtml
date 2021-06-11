@@ -1,5 +1,6 @@
 ﻿@using DeviceShop.Models
-@model IEnumerable<Product>
+@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<Product>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -29,4 +30,7 @@
         </div>  
     }
 </div>
-
+<div>
+    Page 
+    @Html.PagedListPager(Model,x=>Href("~/Customer/Home/Index?page="+x))
+</div>
