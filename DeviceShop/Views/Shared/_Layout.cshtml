@@ -24,6 +24,11 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
 
 </head>
 <body>
@@ -47,7 +52,7 @@
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Cart"><i class="fas fa-cart-plus"></i><label style="color:red">&nbsp;(@count)</label> </a>
+                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Cart"><i class="fas fa-cart-plus"></i><label>&nbsp;(@count)</label> </a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -75,6 +80,8 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://kit.fontawesome.com/e19c476714.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
 
     @RenderSection("Scripts", required: false)
 </body>
