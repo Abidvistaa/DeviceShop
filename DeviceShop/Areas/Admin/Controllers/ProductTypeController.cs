@@ -84,9 +84,6 @@ namespace DeviceShop.Areas.Admin.Controllers
             return View(productType);
         }
 
-       
-        
-
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -95,7 +92,6 @@ namespace DeviceShop.Areas.Admin.Controllers
             _db.Remove(productType);
             _db.SaveChanges();
             return Json(new{success=true,message="Deleted Successfully" });
-           
         }
     }
 }
