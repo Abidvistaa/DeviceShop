@@ -21,15 +21,12 @@ function loadDataTable() {
                                 <a href="/Customer/User/Edit/${data}" class="btn btn-success text-white style" style="cursor:pointer">
                                     <i class="far fa-edit"></i> 
                                 </a>
-                                <a href="/Customer/User/Details/${data}" class="btn btn-success text-white style" style="cursor:pointer">
-                                    <i class="fas fa-list"></i>
-                                </a>
                                 <a onclick=Delete("/Customer/User/Delete/${data}") class="btn btn-danger text-white style" style="cursor:pointer">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
                             </div>
                             `;
-                }, "width": "60%"
+                }
             }
         ]
     });

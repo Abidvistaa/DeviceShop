@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<h2 class="text-info">Add Role </h2>
+<form id="role-form" asp-action="Create" method="post" >
+    <div class="p-4 rounded border" style="width:70%">
+        <div asp-validation-summary="ModelOnly"></div>
+        <h3 style="color:red">@ViewBag.mgs </h3>
+        <div class="form-group row">
+            <div class="col-3">
+                <label >Role Name</label>
+            </div>
+            <div class="col-5">
+                <input id="name" name="name" class="form-control" />
+            </div>
+        </div>
+        
+        <div style="padding-left:290px">
+            <input type="submit" value="Create" id="toastr" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-secondary">Back To List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+<script type="text/javascript">
+    @*$(function () {
+        var save = '@TempData["save"]'
+        if (save != null) {
+            alertify.success(save);
+        }
+    })*@
+    $(document).ready(function () {
+
+        $("#role-form").validate({
+            rules: {
+                name: {
+                    required: true,
+                }
+            },
+            messages: {
+                name: "Enter the Role Name",
+            }
+
+        });
+        
+    });
+
+    //$(function () {
+    //    $("#toastr").click(function () {
+    //        toastr.success("Role Successfully Created");
+    //    });
+    //});
+
+
+
+</script>
+}

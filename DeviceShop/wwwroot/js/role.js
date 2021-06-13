@@ -1,39 +1,30 @@
 ﻿var dataTable;
 $(document).ready(function () {
-        loadDataTable();
+    loadDataTable();
 });
 
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
-       
         "ajax": {
-            "url": "/Admin/Product/GetAll"
+            "url": "/Admin/Role/GetAll"
 
         },
         "columns": [
             { "data": "name" },
-            { "data": "price" },
-            { "data": "color" },
-            { "data": "productType.productsType" },
-            { "data": "specialTag.tagName" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
                             <div class="text-center">
-                                <a href="/Admin/Product/Edit/${data}" class="btn btn-success text-white style" style="cursor:pointer">
+                                <a href="/Admin/Role/Edit/${data}" class="btn btn-success text-white style" style="cursor:pointer">
                                     <i class="far fa-edit"></i> 
                                 </a>
-                                <a href="/Admin/Product/Details/${data}" class="btn btn-success text-white style" style="cursor:pointer">
-                                    <i class="fas fa-list"></i>
-                                </a>
-                                <a onclick=Delete("/Admin/Product/Delete/${data}") class="btn btn-danger text-white style" style="cursor:pointer">
+                                <a onclick=Delete("/Admin/Role/Delete/${data}") class="btn btn-danger text-white style" style="cursor:pointer">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
-     
                             </div>
                             `;
-                }, "width": "30%"
+                }
             }
         ]
     });
@@ -63,7 +54,7 @@ function Delete(url) {
             });
         }
     });
-}
+} 
 
 
 //Alertify

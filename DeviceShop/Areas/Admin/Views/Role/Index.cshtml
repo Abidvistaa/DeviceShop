@@ -1,4 +1,4 @@
-﻿@model DeviceShop.Models.ApplicationUser
+﻿
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,7 +8,7 @@
 <div style="padding-left:100px; width:80%">
     <div class="row">
         <div class="col-6">
-            <h2 class=" text-info">User List</h2>
+            <h2 class=" text-info">Role List</h2>
         </div>
         <div style="padding-left:220px;">
             <a asp-action="Create" class="btn btn-info"><i><i class="fas fa-plus"></i></i>&nbsp; New User</a>
@@ -21,42 +21,42 @@
             <thead style="background-color:darkred">
                 <tr class="table-info">
                     <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>User Name</th>
                     <th></th>
                 </tr>
             </thead>
         </table>
     </div>
 </div>
-
 @*<div>
         <table class="table table-striped border" style="width:50%">
             <tr class="table-info">
-                <th>
-                    @Html.DisplayNameFor(c => c.ProductsType)
-                </th>
-                <th>
-                </th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Color</th>
+                <th>ProductType</th>
+                <th>SpecialTag</th>
+                <th>Availability</th>
+                <th></th>
                 <th>
                 </th>
             </tr>
-            @foreach (var item in Model)
+            @foreach (var item in ViewBag.Roles)
             {
-                <tr>
-                    <td>@item.ProductsType</td>
-                    <td>
-                        <partial name="_ButtonPartial" model="@item.Id" />
-                    </td>
-                </tr>
+        <tr>
+            <td>@item.Name</td>
+            <td>
+                <partial name="_ButtonPartial" model="@item.Id" />
+            </td>
+        </tr>
             }
         </table>
     </div>*@
 
+
+
 @section Scripts{
 
-    <script src="~/js/user.js"></script>
-
+    <script src="~/js/role.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {

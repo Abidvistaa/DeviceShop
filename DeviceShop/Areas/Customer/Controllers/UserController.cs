@@ -33,9 +33,9 @@ namespace DeviceShop.Areas.Customer.Controllers
             return View();
         }
 
-        public ActionResult Edit(string id)
+        public async Task<ActionResult>  Edit(string id)
         {
-            var user = _db.ApplicationUsers.FirstOrDefault(x => x.Id == id);
+            var user = await _db.ApplicationUsers.FindAsync(id);
             return View(user);
         }
 
@@ -47,7 +47,7 @@ namespace DeviceShop.Areas.Customer.Controllers
                 var result = await _userManager.CreateAsync(user, user.PasswordHash);
                 if (result.Succeeded)
                 {
-                    //TempData["save"] = "User has been created Successfully";
+                    TempData["save"] = "User has been created Successfully";
                     return RedirectToAction(nameof(Index));
                 }
               
@@ -72,7 +72,7 @@ namespace DeviceShop.Areas.Customer.Controllers
                 var result = await _userManager.UpdateAsync(userInfo);
                 if (result.Succeeded)
                 {
-                    //TempData["save"] = "User has been Updated";
+                    TempData["edit"] = "User has been Updated";
                     return RedirectToAction(nameof(Index));
                 }
                 foreach (var error in result.Errors)
@@ -86,13 +86,16 @@ namespace DeviceShop.Areas.Customer.Controllers
 
         [HttpPost]
         public ActionResult Delete(string id)
-        {
-
+        {   
             var user = _db.ApplicationUsers.Where(x => x.Id == id).FirstOrDefault<ApplicationUser>();
             _db.Remove(user);
             _db.SaveChanges();
-            return Json(new { success = true, message = "Deleted Successfully" });
-
+            return Json(new { success = true, message = "Deleted Successfully" });   
         }
+
+
+        //For Lockout & Lockend
+        //user.LockoutEnd = DateTime.Now.AddMonths(2);
+        //user.LockoutEnd = DateTime.Now.AddDays(-1);
     }
 }
