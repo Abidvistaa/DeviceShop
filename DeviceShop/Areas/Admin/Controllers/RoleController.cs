@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using DeviceShop.Areas.Admin.Models;
+using DeviceShop.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +14,14 @@ namespace DeviceShop.Areas.Admin.Controllers
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> _rm;
-        public RoleController(RoleManager<IdentityRole> rm)
+        ApplicationDbContext _db;
+        public RoleController(RoleManager<IdentityRole> rm, ApplicationDbContext db)
         {
             _rm = rm;
+            _db=db;
         }
         public IActionResult Index()
         {
-            //var role = _rm.Roles.ToList();
-            //ViewBag.Roles = role;
             return View();
         }
         public IActionResult GetAll()
@@ -39,12 +42,6 @@ namespace DeviceShop.Areas.Admin.Controllers
             ViewBag.name = role.Name;
             return View();
         }
-
-        //public ActionResult Edit(string id)
-        //{
-        //    var user = _db.ApplicationUsers.FirstOrDefault(x => x.Id == id);
-        //    return View(user);
-        //}
 
         [HttpPost]
         public async Task<IActionResult> Create(string name)
@@ -109,5 +106,7 @@ namespace DeviceShop.Areas.Admin.Controllers
             await _rm.DeleteAsync(role);
             return Json(new { success = true, message = "Deleted Successfully" });
         }
+
+       
     }
 }

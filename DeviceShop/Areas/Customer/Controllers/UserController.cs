@@ -47,6 +47,7 @@ namespace DeviceShop.Areas.Customer.Controllers
                 var result = await _userManager.CreateAsync(user, user.PasswordHash);
                 if (result.Succeeded)
                 {
+                    var roleSave = await _userManager.AddToRoleAsync(user, "User");
                     TempData["save"] = "User has been created Successfully";
                     return RedirectToAction(nameof(Index));
                 }
