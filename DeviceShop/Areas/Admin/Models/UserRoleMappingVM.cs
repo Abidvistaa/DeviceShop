@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeviceShop.Areas.Admin.Models
 {
-    public class UserRoleMapping
+    public class UserRoleMappingVM
     {
         
         [Display(Name ="User Id")]

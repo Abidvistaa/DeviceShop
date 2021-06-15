@@ -1,5 +1,6 @@
 ﻿using DeviceShop.Areas.Admin.Models;
 using DeviceShop.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace DeviceShop.Areas.Admin.Controllers
 {
+    [Authorize(Roles ="Admin")]
     [Area("Admin")]
     public class AssignController : Controller
     {
@@ -53,7 +55,7 @@ namespace DeviceShop.Areas.Admin.Controllers
             {
 
                 TempData["save"] = "User Role has been assigned ";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(AssignUserRole));
             }
             return View();
         }
@@ -66,7 +68,7 @@ namespace DeviceShop.Areas.Admin.Controllers
             var result = from ur in _db.UserRoles
                          join r in _db.Roles on ur.RoleId equals r.Id
                          join u in _db.ApplicationUsers on ur.UserId equals u.Id
-                         select new UserRoleMapping()
+                         select new UserRoleMappingVM()
                          {
                              UserId=ur.UserId,
                              RoleId=ur.RoleId,

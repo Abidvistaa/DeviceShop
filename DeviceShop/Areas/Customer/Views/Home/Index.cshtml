@@ -27,10 +27,25 @@
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
     }
 </div>
 <div>
-    Page 
-    @Html.PagedListPager(Model,x=>Href("~/Customer/Home/Index?page="+x))
+    Page
+    @Html.PagedListPager(Model, x => Href("~/Customer/Home/Index?page=" + x))
 </div>
+
+
+@section Scripts{
+  
+
+    <script type="text/javascript">
+                $(function () {
+                var save = '@TempData["save"]'
+                if (save != '') {
+                alertify.success(save);
+            }
+        })
+    </script>
+
+}

@@ -45,7 +45,21 @@
         <h5 style="color:red">Total Amount : @Model.Sum(c => c.Price)</h5>
     </div>
     <div class="col-4 text-right">
-        <a asp-action="Checkout" asp-controller="Order" asp-area="Customer" class="btn btn-outline-info">Process To Checkout</a>
+        <a asp-action="Checkout" asp-controller="Order" asp-area="Customer" class="btn btn-outline-info">Proceed To Order</a>
     </div>
 </div>
 
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+   
+    <script type="text/javascript">
+                $(function () {
+                var save = '@TempData["save"]'
+                if (save != '') {
+                alertify.success(save);
+            }
+        })
+    </script>
+
+}

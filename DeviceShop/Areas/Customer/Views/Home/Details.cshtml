@@ -8,7 +8,8 @@
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 
-@{ 
+@{
+    var userRole = HttpContextAccessor.HttpContext.Session.GetString("roleName");
     List<Product> products = HttpContextAccessor.HttpContext.Session.Get<List<Product>>("products");
     Product product = null;
     if (products != null)
@@ -63,22 +64,30 @@
                 </div>
             </div>
             <br />
-            <div class="form-group" style="padding-left:0px;">
-                <a asp-action="Index" class="btn btn-secondary">Back To List</a>
-                @if (product != null)
-                {
-                    <button type="submit" value="" class="btn btn-outline-danger " asp-action="Remove" asp-route-id="@Model.Id">Remove the order </button>
-                }
-                else
-                {
-
-                    @if (Model.IsAvailable == true)
+            @if (userRole == "Customer" || userRole == "Admin")
+            {
+                <div class="form-group" style="padding-left:0px;">
+                    <a asp-action="Index" class="btn btn-secondary">Back To List</a>
+                    @if (product != null)
                     {
-                        <button type="submit" value="" class="btn btn-outline-success ">Add to Cart</button> <i class="fas fa-cart-plus"></i>
+                        <button type="submit" value="" class="btn btn-outline-danger " asp-action="Remove" asp-route-id="@Model.Id">Remove the order </button>
                     }
-                }
+                    else
+                    {
 
-            </div>
+                        @if (Model.IsAvailable == true)
+                        {
+                            <button type="submit" value="" class="btn btn-outline-success "><i class="fas fa-cart-plus">&nbsp;</i>Add to Cart</button>
+                        }
+                    }
+
+                </div>
+            }
+            else
+            {
+                <a class=" btn btn-outline-success" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-cart-plus">&nbsp;</i>To Order Please Login</a>
+            }
+
             <div class="form-group pt-4">
                 <img src="~/@Model.Image" width="100%" height="100%" />
             </div>

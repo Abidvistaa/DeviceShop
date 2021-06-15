@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DeviceShop.Areas.Customer.Controllers
 {
+    [Authorize]
     [Area("Customer")]
     public class OrderController : Controller
     {
@@ -49,7 +51,8 @@ namespace DeviceShop.Areas.Customer.Controllers
             _db.Orders.Add(order);
             await _db.SaveChangesAsync();
             HttpContext.Session.Set("products", new List<Product>());
-            return View();
+            TempData["save"] = "Order has been successfull";
+            return RedirectToAction("Index", "Home", new { area = "Customer" });
         }
 
         public string GetorderNo()

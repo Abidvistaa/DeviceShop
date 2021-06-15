@@ -1,5 +1,6 @@
 ﻿using DeviceShop.Data;
 using DeviceShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace DeviceShop.Areas.Customer.Controllers
 {
+    
+
     [Area("Customer")]
     public class UserController : Controller
     {
@@ -28,6 +31,8 @@ namespace DeviceShop.Areas.Customer.Controllers
             List<ApplicationUser> applicationUsers = _db.ApplicationUsers.ToList<ApplicationUser>();
             return Json(new { data = applicationUsers });
         }
+
+        
         public IActionResult Create()
         {
             return View();
@@ -39,6 +44,8 @@ namespace DeviceShop.Areas.Customer.Controllers
             return View(user);
         }
 
+
+       
         [HttpPost]
         public async Task<IActionResult> Create(ApplicationUser user)
         {
@@ -47,7 +54,7 @@ namespace DeviceShop.Areas.Customer.Controllers
                 var result = await _userManager.CreateAsync(user, user.PasswordHash);
                 if (result.Succeeded)
                 {
-                    var roleSave = await _userManager.AddToRoleAsync(user, "User");
+                    var roleSave = await _userManager.AddToRoleAsync(user, "Customer");
                     TempData["save"] = "User has been created Successfully";
                     return RedirectToAction(nameof(Index));
                 }
@@ -60,6 +67,7 @@ namespace DeviceShop.Areas.Customer.Controllers
             return View(user);
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ApplicationUser user)
@@ -84,7 +92,7 @@ namespace DeviceShop.Areas.Customer.Controllers
             return View();
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Delete(string id)
         {   
